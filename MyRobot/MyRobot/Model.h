@@ -30,6 +30,7 @@ public:
 	/*  Model Data */
 	vector<Texture> textures_loaded;	// stores all the textures loaded so far, optimization to make sure textures aren't loaded more than once.
 	vector<Mesh> meshes;
+	vector<aiBone> bones;
 	string directory;
 	bool gammaCorrection;
 
@@ -65,6 +66,11 @@ private:
 			cout << "ERROR::ASSIMP:: " << importer.GetErrorString() << endl;
 			return;
 		}
+		for (int i = 0; i < scene->mNumMeshes; i++) {
+			for (int j = 0; j < scene->mMeshes[i]->mNumBones; j++) {
+				bones.push_back(scene->mMeshes[i]->mBones[j][0]);
+			}
+		}
 		// retrieve the directory path of the filepath
 		directory = path.substr(0, path.find_last_of('/'));
 
@@ -93,7 +99,6 @@ private:
 
 	Mesh processMesh(aiMesh *mesh, const aiScene *scene)
 	{
-		cout << mesh->mBones[5][0].mName.C_Str();
 		// data to fill
 		vector<Vertex> vertices;
 		vector<unsigned int> indices;

@@ -58,6 +58,7 @@ int main(int argc, char* args[])
 	SDL_Event e;
 	//While application is running
 	bool quit = false;
+	float i = 0;
 	while (!quit)
 	{
 		// per-frame time logic
@@ -97,7 +98,7 @@ int main(int argc, char* args[])
 				break;
 			}
 		}
-
+		gModel.bones[7].mOffsetMatrix = aiMatrix4x4();
 		//Render
 		render();
 
@@ -229,7 +230,7 @@ bool initGL()
 
 	gShader.Load("./shaders/vertex.vert", "./shaders/fragment.frag");
 
-//	gModel.LoadModel("./models/casa/casa moderna.obj");
+	//	gModel.LoadModel("./models/casa/casa moderna.obj");
 	gModel.LoadModel("./models/robot/robot.dae");
 
 	gVAO = CreateCube(1.0f, gVBO, gEBO);
@@ -288,7 +289,7 @@ void render()
 
 	gModel.Draw(gShader);
 
-//	DrawCube(gVAO);
+	//	DrawCube(gVAO);
 }
 
 GLuint CreateCube(float width, GLuint& VBO, GLuint& EBO)
@@ -301,7 +302,7 @@ GLuint CreateCube(float width, GLuint& VBO, GLuint& EBO)
 		-0.5f,  0.5f, 0.0f, 0.0f, 1.0f   // top left 
 	};
 	//indexed drawing - we will be using the indices to point to a vertex in the vertices array
-	GLuint indices[] = {  
+	GLuint indices[] = {
 		0, 1, 3,   // first triangle
 		1, 2, 3    // second triangle
 	};
